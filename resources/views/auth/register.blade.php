@@ -1,60 +1,123 @@
 <x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+    <div class="w-full max-w-md">
 
-        <x-validation-errors class="mb-4" />
-
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <div>
-                <x-label for="name" value="{{ __('Name') }}" />
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
+        <!-- Logo & Title -->
+        <div class="text-center mb-8">
+            <div class="flex justify-center mb-4">
+                <x-authentication-card-logo />
             </div>
+            <h1 class="text-2xl font-bold text-gray-800">Buat Akun Baru</h1>
+            <p class="mt-1 text-sm text-gray-500">Daftar dan mulai kelola tugas kamu</p>
+        </div>
 
-            <div class="mt-4">
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            </div>
+        <!-- Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 px-8 py-8">
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
+            <x-validation-errors class="mb-4" />
 
-            <div class="mt-4">
-                <x-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
 
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-label for="terms">
-                        <div class="flex items-center">
-                            <x-checkbox name="terms" id="terms" required />
-
-                            <div class="ms-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-label>
+                <!-- Name -->
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1.5">
+                        Nama Lengkap
+                    </label>
+                    <input
+                        id="name"
+                        type="text"
+                        name="name"
+                        value="{{ old('name') }}"
+                        required
+                        autofocus
+                        autocomplete="name"
+                        placeholder="Muhammad Alief"
+                        class="w-full px-4 py-2.5 text-sm text-gray-800 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    />
                 </div>
-            @endif
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+                <!-- Email -->
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">
+                        Alamat Email
+                    </label>
+                    <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        required
+                        autocomplete="username"
+                        placeholder="nama@email.com"
+                        class="w-full px-4 py-2.5 text-sm text-gray-800 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    />
+                </div>
 
-                <x-button class="ms-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
+                <!-- Password -->
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1.5">
+                        Password
+                    </label>
+                    <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        required
+                        autocomplete="new-password"
+                        placeholder="Min. 8 karakter"
+                        class="w-full px-4 py-2.5 text-sm text-gray-800 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    />
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-6">
+                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1.5">
+                        Konfirmasi Password
+                    </label>
+                    <input
+                        id="password_confirmation"
+                        type="password"
+                        name="password_confirmation"
+                        required
+                        autocomplete="new-password"
+                        placeholder="Ulangi password"
+                        class="w-full px-4 py-2.5 text-sm text-gray-800 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    />
+                </div>
+
+                <!-- Terms -->
+                @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                    <div class="mb-6">
+                        <label class="flex items-start gap-2 cursor-pointer">
+                            <input type="checkbox" name="terms" class="mt-0.5 w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" required/>
+                            <span class="text-sm text-gray-600">
+                                Saya setuju dengan
+                                <a href="{{ route('terms.show') }}" class="text-blue-600 hover:underline">Syarat & Ketentuan</a>
+                                dan
+                                <a href="{{ route('policy.show') }}" class="text-blue-600 hover:underline">Kebijakan Privasi</a>
+                            </span>
+                        </label>
+                    </div>
+                @endif
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    class="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-semibold rounded-xl transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                    Buat Akun
+                </button>
+
+            </form>
+        </div>
+
+        <!-- Login Link -->
+        <p class="text-center text-sm text-gray-500 mt-6">
+            Sudah punya akun?
+            <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-700 font-medium transition">
+                Masuk sekarang
+            </a>
+        </p>
+
+    </div>
 </x-guest-layout>
